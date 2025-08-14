@@ -50,10 +50,17 @@ class DB(Enum):
     LanceDB = "LanceDB"
     OceanBase = "OceanBase"
     S3Vectors = "S3Vectors"
+    VertexAI = "VertexAI"
 
     @property
     def init_cls(self) -> type[VectorDB]:  # noqa: PLR0911, PLR0912, C901, PLR0915
         """Import while in use"""
+
+        if self == DB.VertexAI:
+            from .vertexai.vertexai import VertexAIVectorDB
+
+            return VertexAIVectorDB
+
         if self == DB.Milvus:
             from .milvus.milvus import Milvus
 
@@ -200,6 +207,12 @@ class DB(Enum):
     @property
     def config_cls(self) -> type[DBConfig]:  # noqa: PLR0911, PLR0912, C901, PLR0915
         """Import while in use"""
+
+        if self == DB.VertexAI:
+            from .vertexai.config import VertexAIConfig
+
+            return VertexAIConfig
+
         if self == DB.Milvus:
             from .milvus.config import MilvusConfig
 
@@ -347,6 +360,12 @@ class DB(Enum):
         self,
         index_type: IndexType | None = None,
     ) -> type[DBCaseConfig]:
+        
+        if self == DB.VertexAI:
+            from .vertexai.config import VertexAIIndexConfig
+            
+            return VertexAIIndexConfig
+
         if self == DB.Milvus:
             from .milvus.config import _milvus_case_config
 
