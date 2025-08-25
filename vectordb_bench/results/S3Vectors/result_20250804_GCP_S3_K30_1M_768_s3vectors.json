@@ -1,0 +1,123 @@
+{
+    "run_id": "1a0d51d9ecf744b3b071fdf13ac72ec7",
+    "task_label": "S3Vectors_1M_768D_K30_High_conc",
+    "results": [
+        {
+            "metrics": {
+                "max_load_count": 0,
+                "insert_duration": 0.0,
+                "optimize_duration": 0.0,
+                "load_duration": 0.0,
+                "qps": 163.4912,
+                "serial_latency_p99": 1.1258,
+                "serial_latency_p95": 0.278,
+                "recall": 0.8702,
+                "ndcg": 0.8818,
+                "conc_num_list": [
+                    1,
+                    5,
+                    10,
+                    20,
+                    30,
+                    40,
+                    60,
+                    80
+                ],
+                "conc_qps_list": [
+                    3.3078,
+                    22.7595,
+                    51.357,
+                    102.1436,
+                    153.1919,
+                    163.4912,
+                    102.6917,
+                    111.5002
+                ],
+                "conc_latency_p99_list": [
+                    0.42877711298978327,
+                    0.37829255520014177,
+                    0.3658857389100558,
+                    0.3452196371600598,
+                    0.3319695774998763,
+                    1.6577485817400537,
+                    5.34624896750006,
+                    6.8066664118399105
+                ],
+                "conc_latency_p95_list": [
+                    0.3912769454500221,
+                    0.305024343499781,
+                    0.2724279945002763,
+                    0.2765018288003375,
+                    0.27163298150003357,
+                    0.29518384830016675,
+                    1.2551192005003031,
+                    1.280982654800027
+                ],
+                "conc_latency_avg_list": [
+                    0.3010236937100217,
+                    0.21757515705933836,
+                    0.19162540773537307,
+                    0.18978361593223853,
+                    0.18706312824181515,
+                    0.22474918857572462,
+                    0.38411698198279426,
+                    0.4320976132318842
+                ],
+                "st_ideal_insert_duration": 0,
+                "st_search_stage_list": [],
+                "st_search_time_list": [],
+                "st_max_qps_list_list": [],
+                "st_recall_list": [],
+                "st_ndcg_list": [],
+                "st_serial_latency_p99_list": [],
+                "st_serial_latency_p95_list": [],
+                "st_conc_failed_rate_list": []
+            },
+            "task_config": {
+                "db": "S3Vectors",
+                "db_config": {
+                    "db_label": "",
+                    "version": "",
+                    "note": "",
+                    "region_name": "us-west-2",
+                    "access_key_id": "**********",
+                    "secret_access_key": "**********",
+                    "bucket_name": "my-vector-bucket",
+                    "index_name": "my-s3-index"
+                },
+                "db_case_config": {
+                    "metric_type": "COSINE",
+                    "data_type": "float32"
+                },
+                "case_config": {
+                    "case_id": 5,
+                    "custom_case": null,
+                    "k": 30,
+                    "concurrency_search_config": {
+                        "num_concurrency": [
+                            1,
+                            5,
+                            10,
+                            20,
+                            30,
+                            40,
+                            60,
+                            80
+                        ],
+                        "concurrency_duration": 30,
+                        "concurrency_timeout": 3600
+                    }
+                },
+                "stages": [
+                    "drop_old",
+                    "load",
+                    "search_serial",
+                    "search_concurrent"
+                ]
+            },
+            "label": ":)"
+        }
+    ],
+    "file_fmt": "result_{}_{}_{}.json",
+    "timestamp": 1754265600.0
+}
