@@ -1,0 +1,115 @@
+{
+    "run_id": "0341d2427d554516aa7f7affeca5ce7d",
+    "task_label": "Vecx_High_conc_K30_1M_768",
+    "results": [
+        {
+            "metrics": {
+                "max_load_count": 0,
+                "insert_duration": 4596.2446,
+                "optimize_duration": 0.0164,
+                "load_duration": 4596.2609,
+                "qps": 348.1884,
+                "serial_latency_p99": 0.0266,
+                "recall": 0.9916,
+                "ndcg": 0.9927,
+                "conc_num_list": [
+                    1,
+                    5,
+                    10,
+                    20,
+                    30,
+                    40,
+                    60,
+                    80
+                ],
+                "conc_qps_list": [
+                    46.39,
+                    186.4957,
+                    293.5229,
+                    330.8836,
+                    348.1884,
+                    346.6805,
+                    334.6559,
+                    332.4275
+                ],
+                "conc_latency_p99_list": [
+                    0.02596354871813673,
+                    0.03517554627804202,
+                    0.048363799900107564,
+                    0.10480434088036415,
+                    0.13186269704776352,
+                    0.20660801630001513,
+                    0.5723422221810325,
+                    0.512236936186091
+                ],
+                "conc_latency_avg_list": [
+                    0.0215368602643379,
+                    0.02677386217269918,
+                    0.033977576372001855,
+                    0.06011963198966603,
+                    0.0854211806681351,
+                    0.11352024212733997,
+                    0.1722915777252635,
+                    0.2265108078070647
+                ],
+                "st_ideal_insert_duration": 0,
+                "st_search_stage_list": [],
+                "st_search_time_list": [],
+                "st_max_qps_list_list": [],
+                "st_recall_list": [],
+                "st_ndcg_list": [],
+                "st_serial_latency_p99_list": [],
+                "st_conc_failed_rate_list": []
+            },
+            "task_config": {
+                "db": "VectorX",
+                "db_config": {
+                    "db_label": "",
+                    "version": 1,
+                    "note": "",
+                    "token": "**********",
+                    "region": "india-west-1",
+                    "key": "3a5f08c7d9e1b2a43a5f08c7d9e1b2a4",
+                    "space_type": "cosine",
+                    "use_fp16": false,
+                    "use_encryption": false,
+                    "m": 32,
+                    "ef_con": 256,
+                    "ef_search": 128,
+                    "collection_name": "my_index"
+                },
+                "db_case_config": {
+                    "null": null
+                },
+                "case_config": {
+                    "case_id": 5,
+                    "custom_case": null,
+                    "k": 30,
+                    "concurrency_search_config": {
+                        "num_concurrency": [
+                            1,
+                            5,
+                            10,
+                            20,
+                            30,
+                            40,
+                            60,
+                            80
+                        ],
+                        "concurrency_duration": 30,
+                        "concurrency_timeout": 3600
+                    }
+                },
+                "stages": [
+                    "drop_old",
+                    "load",
+                    "search_serial",
+                    "search_concurrent"
+                ]
+            },
+            "label": ":)"
+        }
+    ],
+    "file_fmt": "result_{}_{}_{}.json",
+    "timestamp": 1754352000.0
+}

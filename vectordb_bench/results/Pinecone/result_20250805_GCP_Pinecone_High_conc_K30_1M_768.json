@@ -1,0 +1,119 @@
+{
+    "run_id": "69d00710766a4229ba66bf5b317d247b",
+    "task_label": "Pinecone_K30_1M_768_High_conc",
+    "results": [
+        {
+            "metrics": {
+                "max_load_count": 0,
+                "insert_duration": 0.0,
+                "optimize_duration": 0.0,
+                "load_duration": 0.0,
+                "qps": 86.7136,
+                "serial_latency_p99": 0.0955,
+                "serial_latency_p95": 0.0851,
+                "recall": 0.954,
+                "ndcg": 0.9626,
+                "conc_num_list": [
+                    1,
+                    5,
+                    10,
+                    20,
+                    30,
+                    40,
+                    60,
+                    80
+                ],
+                "conc_qps_list": [
+                    12.1035,
+                    55.3005,
+                    86.7136,
+                    85.9631,
+                    84.6456,
+                    81.067,
+                    70.0415,
+                    77.9028
+                ],
+                "conc_latency_p99_list": [
+                    0.11197145193000312,
+                    0.13260846659104572,
+                    0.18006161559023875,
+                    0.32835526467708404,
+                    0.6201896215014867,
+                    0.9160207971886838,
+                    1.8967665873991812,
+                    1.9964662025852886
+                ],
+                "conc_latency_p95_list": [
+                    0.10114646440342767,
+                    0.11073614600172732,
+                    0.15052061509632034,
+                    0.2823967037984403,
+                    0.385822242451104,
+                    0.6021232019993477,
+                    0.8739875462561031,
+                    1.0997104922498693
+                ],
+                "conc_latency_avg_list": [
+                    0.0818518875313879,
+                    0.0891056125024516,
+                    0.11231749130389,
+                    0.22200354813797946,
+                    0.33050608299129197,
+                    0.4490476414209484,
+                    0.7267703100040319,
+                    0.8400936723659845
+                ],
+                "st_ideal_insert_duration": 0,
+                "st_search_stage_list": [],
+                "st_search_time_list": [],
+                "st_max_qps_list_list": [],
+                "st_recall_list": [],
+                "st_ndcg_list": [],
+                "st_serial_latency_p99_list": [],
+                "st_serial_latency_p95_list": [],
+                "st_conc_failed_rate_list": []
+            },
+            "task_config": {
+                "db": "Pinecone",
+                "db_config": {
+                    "db_label": "",
+                    "version": "",
+                    "note": "",
+                    "api_key": "**********",
+                    "index_name": "my-index"
+                },
+                "db_case_config": {
+                    "null": null
+                },
+                "case_config": {
+                    "case_id": 5,
+                    "custom_case": null,
+                    "k": 30,
+                    "concurrency_search_config": {
+                        "num_concurrency": [
+                            1,
+                            5,
+                            10,
+                            20,
+                            30,
+                            40,
+                            60,
+                            80
+                        ],
+                        "concurrency_duration": 30,
+                        "concurrency_timeout": 3600
+                    }
+                },
+                "stages": [
+                    "drop_old",
+                    "load",
+                    "search_serial",
+                    "search_concurrent"
+                ]
+            },
+            "label": ":)"
+        }
+    ],
+    "file_fmt": "result_{}_{}_{}.json",
+    "timestamp": 1754352000.0
+}
