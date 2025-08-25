@@ -5,7 +5,7 @@ from typing import Any
 import numpy as np
 import redis
 from redis.commands.search.field import NumericField, TagField, VectorField
-from redis.commands.search.indexDefinition import IndexDefinition, IndexType
+from redis.commands.search.index_definition import IndexDefinition, IndexType
 from redis.commands.search.query import Query
 
 from ..api import DBCaseConfig, VectorDB
@@ -25,6 +25,21 @@ class Redis(VectorDB):
     ):
         self.db_config = db_config
         self.case_config = db_case_config
+        
+        # Defensive validation and logging
+        log.info(f"Initializing Redis client with case_config: {self.case_config}")
+        if not hasattr(self.case_config, 'index_param'):
+            raise TypeError("case_config does not have index_param() method")
+
+        idx_params = self.case_config.index_param()
+        log.info(f"index_param() output: {idx_params}")
+
+        if not isinstance(idx_params, dict) or "params" not in idx_params:
+            raise ValueError(f"Invalid index_param() return value: {idx_params}")
+
+        params = idx_params["params"]
+        if params.get("M") is None or params.get("efConstruction") is None:
+            raise ValueError(f"'M' and 'efConstruction' must be set in index_param() return: {idx_params}")
         self.collection_name = INDEX_NAME
 
         # Create a redis connection, if db has password configured, add it to the connection here and in init():
@@ -52,27 +67,56 @@ class Redis(VectorDB):
         try:
             # check to see if index exists
             conn.ft(INDEX_NAME).info()
-        except Exception:
-            schema = (
-                TagField("id"),
-                NumericField("metadata"),
-                VectorField(
-                    "vector",  # Vector Field Name
-                    "HNSW",  # Vector Index Type: FLAT or HNSW
-                    {
-                        "TYPE": "FLOAT32",  # FLOAT32 or FLOAT64
-                        "DIM": vector_dimensions,  # Number of Vector Dimensions
-                        "DISTANCE_METRIC": "COSINE",  # Vector Search Distance Metric
-                        "M": self.case_config.index_param()["params"]["M"],
-                        "EF_CONSTRUCTION": self.case_config.index_param()["params"]["efConstruction"],
-                    },
-                ),
-            )
+            return  # Index exists, no need to recreate
+        except redis.exceptions.ResponseError:
+            # Index does not exist, create it
+            pass
 
-            definition = IndexDefinition(index_type=IndexType.HASH)
+        # Add debug log for index params
+        index_params = self.case_config.index_param()
+        log.info(f"Index params: {index_params}")
 
-            rs = conn.ft(INDEX_NAME)
-            rs.create_index(schema, definition=definition)
+        params = index_params.get("params")
+        if params is None:
+            raise ValueError(f"Missing 'params' key in index_param() return: {index_params}")
+
+        m = params.get("M")
+        ef_construction = params.get("efConstruction")
+
+        if m is None or ef_construction is None:
+            raise ValueError(f"'M' or 'efConstruction' missing in params: {params}")
+
+        schema = (
+            TagField("id"),
+            NumericField("metadata"),
+            # VectorField(
+            #     "vector",  # Vector Field Name
+            #     "HNSW",  # Vector Index Type: FLAT or HNSW
+            #     {
+            #         "TYPE": "FLOAT32",  # FLOAT32 or FLOAT64
+            #         "DIM": vector_dimensions,  # Number of Vector Dimensions
+            #         "DISTANCE_METRIC": "COSINE",  # Vector Search Distance Metric
+            #         "M": self.case_config.index_param()["params"]["M"],
+            #         "EF_CONSTRUCTION": self.case_config.index_param()["params"]["efConstruction"],
+            #     },
+            # ),
+            VectorField(
+                "vector",
+                "HNSW",
+                attributes={
+                    "TYPE": "FLOAT32",
+                    "DIM": vector_dimensions,
+                    "DISTANCE_METRIC": "COSINE",
+                    "M": m,
+                    "EF_CONSTRUCTION": ef_construction,
+                },
+            ),
+        )
+
+        definition = IndexDefinition(index_type=IndexType.HASH)
+
+        conn.ft(INDEX_NAME).create_index(schema, definition=definition)
+        log.info(f"Created Redis index {INDEX_NAME} with schema: {schema}")
 
     @contextmanager
     def init(self) -> None:

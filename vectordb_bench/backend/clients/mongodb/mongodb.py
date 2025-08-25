@@ -130,7 +130,8 @@ class MongoDB(VectorDB):
         embeddings: list[list[float]],
         metadata: list[int],
         **kwargs,
-    ) -> (int, Exception | None):
+    ) -> tuple[int, Exception | None]:
+    # ) -> (int, Exception | None):
         """Insert embeddings into MongoDB"""
 
         # Prepare documents in bulk
@@ -162,12 +163,12 @@ class MongoDB(VectorDB):
         vector_search = {"queryVector": query, "index": "vector_index", "path": self.vector_field, "limit": k}
 
         # Add exact search parameter if specified
-        if search_params["exact"]:
+        if search_params.get("exact", False):
             vector_search["exact"] = True
         else:
             # Set numCandidates based on k value and data size
             # For 50K dataset, use higher multiplier for better recall
-            num_candidates = min(10000, k * search_params["num_candidates_ratio"])
+            num_candidates = min(10000, k * search_params.get("num_candidates_ratio", 10))
             vector_search["numCandidates"] = num_candidates
 
         # Add filter if specified

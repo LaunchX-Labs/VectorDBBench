@@ -1,4 +1,4 @@
-from pydantic import BaseModel, SecretStr
+from pydantic import BaseModel, SecretStr, validator
 
 from ..api import DBCaseConfig, DBConfig, IndexType, MetricType
 
@@ -31,7 +31,16 @@ class RedisHNSWConfig(RedisIndexConfig, DBCaseConfig):
     M: int
     efConstruction: int
     ef: int | None = None
+    # M: int = 32
+    # efConstruction: int = 256
+    # ef: int | None = 128
     index: IndexType = IndexType.HNSW
+
+    @validator('M', 'efConstruction')
+    def must_be_positive(cls, v):
+        if v is None or v <= 0:
+            raise ValueError('M and efConstruction must be positive integers')
+        return v
 
     def index_param(self) -> dict:
         return {
@@ -41,6 +50,8 @@ class RedisHNSWConfig(RedisIndexConfig, DBCaseConfig):
         }
 
     def search_param(self) -> dict:
+        if self.ef is None:
+            return {"metric_type": self.parse_metric(), "params": {}}
         return {
             "metric_type": self.parse_metric(),
             "params": {"ef": self.ef},

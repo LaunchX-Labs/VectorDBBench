@@ -461,6 +461,11 @@ class DB(Enum):
             from .s3_vectors.config import S3VectorsIndexConfig
 
             return S3VectorsIndexConfig
+        
+        if self == DB.Redis:
+            from .redis.config import RedisHNSWConfig
+
+            return RedisHNSWConfig        
 
         # DB.Pinecone, DB.Chroma, DB.Redis
         return EmptyDBCaseConfig
