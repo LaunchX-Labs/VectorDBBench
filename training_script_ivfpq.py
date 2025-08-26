@@ -11,7 +11,7 @@ import pickle
 # Configuration
 d = 768                          # Cohere embedding dimension
 nlist = 256                     # Number of clusters
-m = 8                          # Sub-vectors (768/64=12D per sub-vector)
+m = 64                          # Sub-vectors (768/64=12D per sub-vector)
 nbits = 8                        # Bits per sub-vector (256 centroids per subquantizer)
 train_size = 298000             # Number of vectors for training
 index_id = "cohere_wiki_ivfpq"   # Unique ID for MySQL
