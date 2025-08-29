@@ -308,7 +308,7 @@ class FacebookMyRocks(VectorDB):
             self.cursor.close()
             self.conn.close()
             log.debug("Closed DB connection in init context manager")
-            time.sleep(5)
+            # time.sleep(5)
             self.cursor = None
             self.conn = None
 
