@@ -6,7 +6,7 @@ import json
 import pickle
 
 d = 768                          # Cohere embedding dimension
-nlist = 64                    # Number of clusters
+nlist = 256                    # Number of clusters
 
 train_size = 298000             # Number of vectors for training
 index_id = "cohere_wiki_ivfflat"   # Unique ID for MySQL
