@@ -1,0 +1,132 @@
+{
+    "run_id": "315e7bc944eb420880a1f47a048cdfca",
+    "task_label": "ElasticCloud_K30_1M_768_High_conc",
+    "results": [
+        {
+            "metrics": {
+                "max_load_count": 0,
+                "insert_duration": 0.0,
+                "optimize_duration": 0.0,
+                "load_duration": 0.0,
+                "qps": 98.5301,
+                "serial_latency_p99": 0.073,
+                "serial_latency_p95": 0.0686,
+                "recall": 0.9421,
+                "ndcg": 0.9414,
+                "conc_num_list": [
+                    1,
+                    5,
+                    10,
+                    20,
+                    30,
+                    40,
+                    60,
+                    80
+                ],
+                "conc_qps_list": [
+                    15.9885,
+                    52.8547,
+                    72.7741,
+                    87.3901,
+                    92.5059,
+                    97.0008,
+                    78.8169,
+                    98.5301
+                ],
+                "conc_latency_p99_list": [
+                    0.06856010099581908,
+                    0.1265084652528458,
+                    0.17682752816559497,
+                    0.3509216330233903,
+                    0.7581821016366288,
+                    1.044351369527864,
+                    2.002507124567499,
+                    2.0779461690585603
+                ],
+                "conc_latency_p95_list": [
+                    0.0661490229977062,
+                    0.10439774750193465,
+                    0.15505132049001985,
+                    0.2739733203998185,
+                    0.39126239520192024,
+                    0.4973894810042112,
+                    0.7812568755514803,
+                    0.9896143017511347
+                ],
+                "conc_latency_avg_list": [
+                    0.06245170012241682,
+                    0.09409891828270925,
+                    0.13645978218035199,
+                    0.22532424432321338,
+                    0.3151694520914048,
+                    0.39723472926365483,
+                    0.5859332364392847,
+                    0.7344254283147121
+                ],
+                "st_ideal_insert_duration": 0,
+                "st_search_stage_list": [],
+                "st_search_time_list": [],
+                "st_max_qps_list_list": [],
+                "st_recall_list": [],
+                "st_ndcg_list": [],
+                "st_serial_latency_p99_list": [],
+                "st_serial_latency_p95_list": [],
+                "st_conc_failed_rate_list": []
+            },
+            "task_config": {
+                "db": "ElasticCloud",
+                "db_config": {
+                    "db_label": "",
+                    "version": "",
+                    "note": "",
+                    "cloud_id": "**********",
+                    "password": "**********"
+                },
+                "db_case_config": {
+                    "element_type": "float",
+                    "index": "hnsw",
+                    "number_of_shards": 1,
+                    "number_of_replicas": 0,
+                    "refresh_interval": "30s",
+                    "merge_max_thread_count": 8,
+                    "use_rescore": false,
+                    "oversample_ratio": 2.0,
+                    "use_routing": false,
+                    "use_force_merge": true,
+                    "metric_type": "COSINE",
+                    "efConstruction": 256,
+                    "M": 32,
+                    "num_candidates": 128
+                },
+                "case_config": {
+                    "case_id": 5,
+                    "custom_case": null,
+                    "k": 30,
+                    "concurrency_search_config": {
+                        "num_concurrency": [
+                            1,
+                            5,
+                            10,
+                            20,
+                            30,
+                            40,
+                            60,
+                            80
+                        ],
+                        "concurrency_duration": 30,
+                        "concurrency_timeout": 3600
+                    }
+                },
+                "stages": [
+                    "drop_old",
+                    "load",
+                    "search_serial",
+                    "search_concurrent"
+                ]
+            },
+            "label": ":)"
+        }
+    ],
+    "file_fmt": "result_{}_{}_{}.json",
+    "timestamp": 1754352000.0
+}
