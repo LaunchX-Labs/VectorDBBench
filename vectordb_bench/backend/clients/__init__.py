@@ -49,7 +49,9 @@ class DB(Enum):
     Vespa = "Vespa"
     LanceDB = "LanceDB"
     OceanBase = "OceanBase"
+    VectorX = "VectorX"
     S3Vectors = "S3Vectors"
+    FacebookMyRocks = "FacebookMyRocks"
 
     @property
     def init_cls(self) -> type[VectorDB]:  # noqa: PLR0911, PLR0912, C901, PLR0915
@@ -183,6 +185,10 @@ class DB(Enum):
             from .vespa.vespa import Vespa
 
             return Vespa
+        if self == DB.VectorX:
+            from .vectorx.vectorx import VectorX
+
+            return VectorX
 
         if self == DB.LanceDB:
             from .lancedb.lancedb import LanceDB
@@ -193,6 +199,11 @@ class DB(Enum):
             from .s3_vectors.s3_vectors import S3Vectors
 
             return S3Vectors
+        
+        if self == DB.FacebookMyRocks:
+            from .facebook_myrocks.facebook_myrocks import FacebookMyRocks
+
+            return FacebookMyRocks
 
         msg = f"Unknown DB: {self.name}"
         raise ValueError(msg)
@@ -329,6 +340,10 @@ class DB(Enum):
             from .vespa.config import VespaConfig
 
             return VespaConfig
+        if self == DB.VectorX:
+            from .vectorx.config import VectorXConfig
+
+            return VectorXConfig
 
         if self == DB.LanceDB:
             from .lancedb.config import LanceDBConfig
@@ -339,6 +354,11 @@ class DB(Enum):
             from .s3_vectors.config import S3VectorsConfig
 
             return S3VectorsConfig
+        
+        if self == DB.FacebookMyRocks:
+            from .facebook_myrocks.config import FacebookMyRocksConfig
+
+            return FacebookMyRocksConfig
 
         msg = f"Unknown DB: {self.name}"
         raise ValueError(msg)
@@ -461,6 +481,11 @@ class DB(Enum):
             from .s3_vectors.config import S3VectorsIndexConfig
 
             return S3VectorsIndexConfig
+        
+        # if self == DB.FacebookMyRocks:
+        #     from .facebook_myrocks.config import FacebookMyRocksIndexConfig
+
+        #     return FacebookMyRocksIndexConfig
 
         # DB.Pinecone, DB.Chroma, DB.Redis
         return EmptyDBCaseConfig

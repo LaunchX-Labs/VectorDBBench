@@ -10,5 +10,20 @@ build/
 venv/
 .venv/
 .idea/
+
+results/
+logs/
+dataset/
+benchmark_logs.txt
+commands.txt
+past_vecx_res/
+mysqld.log
+.python-version
+extra.py
+accumulated_cohere_embeddings.pkl
+accumulated_cohere_embeddings2.pkl
+original_facebookmyrocks.py
+
 # results/
 logs/
+

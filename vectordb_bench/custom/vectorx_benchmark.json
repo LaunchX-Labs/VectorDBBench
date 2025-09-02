@@ -1,0 +1,27 @@
+{
+  "name": "vectorx_benchmark",
+  "timeout": 1800,
+  "description": "VectorX benchmarking",
+  "datasets": [
+    "sift10k",
+    "glove25"
+  ],
+  "cases": [
+    {
+      "name": "VectorX default",
+      "metrics": [
+        "ann_recall",
+        "insert_latency"
+      ],
+      "params": {
+        "db": "VectorX",
+        "db_config": {
+          "token": "burhan1:ZzWqKEC2vhYW7YuUV866ydJvPcrWEZJU:india-west-1",
+          "key": "b1479f6fe2197e5e3214eeb64abc9969",
+          "region": "india-west-1",
+          "space_type": "cosine"
+        }
+      }
+    }
+  ]
+} 
