@@ -25,3 +25,5 @@ pymilvus
 clickhouse_connect
 pyvespa
 mysql-connector-python
+vecx==0.31.7
+scikit-learn==1.7.1

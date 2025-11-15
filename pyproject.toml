@@ -74,6 +74,7 @@ all = [
     "pyvespa",
     "lancedb",
     "mysql-connector-python",
+    "vecx==0.31.7",
 ]
 
 qdrant          = [ "qdrant-client" ]
@@ -98,6 +99,7 @@ clickhouse      = [ "clickhouse-connect" ]
 vespa           = [ "pyvespa" ]
 lancedb         = [ "lancedb" ]
 oceanbase       = [ "mysql-connector-python" ]
+vectorx         = [ "vecx==0.31.7" ]
 
 [project.urls]
 "repository" = "https://github.com/zilliztech/VectorDBBench"
