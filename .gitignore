@@ -10,6 +10,7 @@ build/
 venv/
 .venv/
 .idea/
+
 results/
 logs/
 dataset/
@@ -22,3 +23,7 @@ extra.py
 accumulated_cohere_embeddings.pkl
 accumulated_cohere_embeddings2.pkl
 original_facebookmyrocks.py
+
+# results/
+logs/
+
